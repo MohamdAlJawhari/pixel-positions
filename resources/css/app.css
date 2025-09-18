@@ -6,8 +6,17 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* custom 10px font size (0.625rem) + line-height 1rem */
+    --text-xs: 0.625rem;
+    /* --text-xxs: 0.625rem 1rem; */
+    
+    /* pick one font; the last one wins anyway */
+    --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+    /* your colors still fine */
+    --color-black: #060606;
+    --color-midnight: #121063;
+    
 }
 
 @tailwind base;

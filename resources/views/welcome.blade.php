@@ -1,6 +1,14 @@
 <x-layout>
     <div class="space-y-10">
-        <section>
+        <section class="text-center pt-5">
+            <h1 class="font-bold text-4xl ">Let's Find Your Next Job</h1>
+
+            <form action="" class="mt-6">
+                <input type="text" placeholder="Web Developer..." class="rounded-xl bg-white/5 border-white/10 px-5 py-4 w-full md:w-1/2 ">
+            </form>
+        </section>
+
+        <section class="pt-10">
             <x-section-hedding>Top Job</x-section-hedding>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-6">
@@ -14,14 +22,14 @@
         <section>
             <x-section-hedding>Tags</x-section-hedding>
 
-            <div class="flex flex-wrap gap-3 mt-6">
-                <x-tag>Design</x-tag>
-                <x-tag>Product</x-tag>
-                <x-tag>Engineering</x-tag>
-                <x-tag>Marketing</x-tag>
-                <x-tag>Customer Success</x-tag>
-                <x-tag>Human Resource</x-tag>
-                <x-tag>Finance</x-tag>
+            <div class="flex flex-wrap gap-1 mt-6">
+                <x-tag>Tag</x-tag>
+                <x-tag>Tag</x-tag>
+                <x-tag>Tag</x-tag>
+                <x-tag>Tag</x-tag>
+                <x-tag>Tag</x-tag>
+                <x-tag>Tag</x-tag>
+                <x-tag>Tag</x-tag>
             </div>
 
         </section>
@@ -29,6 +37,12 @@
         <section>
             <x-section-hedding>Recent Jobs</x-section-hedding>
 
+            <div class="mt-6 space-y-6">
+                <x-job-card-wide></x-job-card-wide>
+                <x-job-card-wide></x-job-card-wide>
+                <x-job-card-wide></x-job-card-wide>
+
+            </div>
         </section>
     </div>
 </x-layout>
