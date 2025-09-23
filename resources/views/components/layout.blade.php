@@ -32,11 +32,15 @@
             </div>
 
             @auth
-                <div>
+                <div class="flex space-x-6 font-bold">
                     <x-section-hedding size="small">
                         <a href="/jobs/create">Post a Job</a>
                     </x-section-hedding>
-
+                    <form method="POST" action="/logout" >
+                        @csrf
+                        @method('DELETE')
+                        <button>Log Out</button>
+                    </form>
                 </div>
             @endauth
 

@@ -8,6 +8,10 @@ use App\Http\Controllers\SearhController;
 use App\Http\Controllers\TagController;
 
 Route::get('/', [JobController::class, 'index'])->name('jobs.index');
+Route::get('/jobs/create', [JobController::class, 'create'])->middleware('auth');
+Route::post('/jobs', [JobController::class, 'store'])->middleware('auth');
+
+
 Route::get('/search', SearhController::class);
 Route::get('/tags/{tag:name}', TagController::class);
 

@@ -6,6 +6,10 @@ use App\Models\Job;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Tag;
+use Arr;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class JobController extends Controller
 {
@@ -14,11 +18,14 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::all()->groupBy('featured');
-        
-        return view('jobs.index',[
-            'featuredJobs' => $jobs[1],
+        $jobs = Job::latest()
+            ->with(['employer', 'tags'])
+            ->get()
+            ->groupBy('featured');
+
+        return view('jobs.index', [
             'jobs' => $jobs[0],
+            'featuredJobs' => $jobs[1],
             'tags' => Tag::all(),
         ]);
     }
@@ -28,15 +35,40 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        return view('jobs.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJobRequest $request)
+    public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'title' => ['required'],
+            'description' => ['required', 'string', 'min:10'],
+            'salary' => ['required'],
+            'location' => ['required'],
+            'schedule' => ['required', Rule::in(['Full-time', 'Part-time', 'Contract'])],
+            'url' => ['required', 'active_url'],
+            'tags' => ['nullable'],
+        ]);
+
+        $attributes['featured'] = $request->has('featured');
+
+        $job = Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags')); // create all the atributes without the tags
+
+        if ($attributes['tags'] ?? false) {
+            $tags = array_map(
+                fn($tag) => strtolower(trim($tag)), // insure that the tags are in lowercase
+                explode(',', $attributes['tags']) //video, education, programing => ['video', 'education', 'programing']
+            );
+
+            foreach ($tags as $tag) {
+                $job->tag($tag);
+            }
+        }
+
+        return redirect('/');
     }
 
     /**
