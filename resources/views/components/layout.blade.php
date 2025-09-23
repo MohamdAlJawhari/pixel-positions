@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="bg-black text-white font-hanken-grotesk">
+<body class="bg-black text-white font-hanken-grotesk pb-20">
     <div class="px-10">
         <nav class="flex justify-between items-center py-4 border-b border-white/15 rounded-lg">
             <div>
@@ -31,10 +31,21 @@
                 <a href="#">Companies</a>
             </div>
 
-            <div>
-                <x-section-hedding size="small"><a href="#">Post a Job</a></x-section-hedding>
-                
-            </div>
+            @auth
+                <div>
+                    <x-section-hedding size="small">
+                        <a href="/jobs/create">Post a Job</a>
+                    </x-section-hedding>
+
+                </div>
+            @endauth
+
+            @guest
+                <div class="space-x-6 font-bold text-white/80">
+                    <a href="/register">Sign up</a>
+                    <a href="/login">Log in</a>
+                </div>
+            @endguest
         </nav>
 
         <main class="mt-10 max-w-[986px] mx-auto">
