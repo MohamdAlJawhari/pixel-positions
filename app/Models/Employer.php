@@ -12,12 +12,15 @@ class Employer extends Model
     /** @use HasFactory<\Database\Factories\EmployerFactory> */
     use HasFactory;
 
+    protected $guarded = [];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function jobs(): HasMany{
+    public function jobs(): HasMany
+    {
         return $this->hasMany(Job::class);
     }
 

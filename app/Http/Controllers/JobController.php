@@ -16,16 +16,33 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    // public function index()
+    // {
+    //     $jobs = Job::latest()
+    //         ->with(['employer', 'tags'])
+    //         ->get()
+    //         ->groupBy('featured');
+
+    //     return view('jobs.index', [
+    //         'jobs' => $jobs[0],
+    //         'featuredJobs' => $jobs[1],
+    //         'tags' => Tag::all(),
+    //     ]);
+    // }
+
+    // make sure that if one bucket is empty
     public function index()
     {
-        $jobs = Job::latest()
+        $all = Job::latest()
             ->with(['employer', 'tags'])
-            ->get()
-            ->groupBy('featured');
+            ->get();
 
+        $featuredJobs = $all->filter->featured->values(); // only featured
+        $jobs = $all;
         return view('jobs.index', [
-            'jobs' => $jobs[0],
-            'featuredJobs' => $jobs[1],
+            'jobs' => $jobs,
+            'featuredJobs' => $featuredJobs,
             'tags' => Tag::all(),
         ]);
     }
